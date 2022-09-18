@@ -1,9 +1,36 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import axios from "axios";
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
+  const [data, setData] = useState<null | string>(null);
+  useEffect(() => {
+    // 初期表示時に実行したい処理を定義する
+    
+    setTimeout(() => {
+      axios
+        .get("http://localhost:9002/") // http://localhost:9002/ に get リクエストを実行
+        .then((response) => { 
+          // 成功した場合の処理を定義
+          // handle success
+          console.log(response);
+          setData(response.data); // data を更新する
+        })
+        .catch(function (error) {
+          // エラー時の処理を定義
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // 成功時も失敗時も最後に実行したい処理があれば定義する
+          // always executed
+        });
+    }, 3000); // 3000ミリ秒後(3秒後)に実行
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,12 +40,14 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+        {/* ↓data に入っている文字列を画面に描画する */}
+        <div>{data}</div>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
@@ -59,14 +88,14 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
