@@ -86,3 +86,6 @@ docker-compose exec db sh # mysql コンテナにログイン
 mysql -u root -p # パスワードは example を入力する
 show databases; # 今あるDBを確認
 ```
+
+PR参考
+https://github.com/shinkawa-shinji-japan/education/pull/1
