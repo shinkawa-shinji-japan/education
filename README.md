@@ -47,17 +47,17 @@ services:
 
 docker-compose up
 
-docker exec -it 5e8da775d7202cafd44e3c3ecf2168d56a15e92b2af1963a3bfb8e691743da60 sh 
+docker exec -it 5e8da775d7202cafd44e3c3ecf2168d56a15e92b2af1963a3bfb8e691743da60 sh
 next.js 構築 ref: https://nextjs.org/docs
 yarn create next-app --typescript
 
-
-docker exec -it d72852e78825fa5516972c848926b0d19790195b35378578bdd65771ca1beecb bash 
+docker exec -it d72852e78825fa5516972c848926b0d19790195b35378578bdd65771ca1beecb bash
 express 構築 re: https://blog.logrocket.com/how-to-set-up-node-typescript-express/
 npm init --yes
 touch index.js
 
-# 初期構築 
+# 初期構築
+
 ```bash
 # git clone
 git clone git@github.com:shinkawa-shinji-japan/education.git
@@ -68,6 +68,7 @@ docker-compose run --rm api yarn # api のパッケージをインストール
 ```
 
 # 遊ぼう
+
 ```bash
 # 起動
 docker-compose up # 全コンテナ(front,api,db)を起動
@@ -81,5 +82,7 @@ docker ps # 起動確認
 docker-compose stop # 停止
 
 
-# 
+docker-compose exec db sh # mysql コンテナにログイン
+mysql -u root -p # パスワードは example を入力する
+show databases; # 今あるDBを確認
 ```
