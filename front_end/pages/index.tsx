@@ -8,23 +8,27 @@ import styles from "../styles/Home.module.css";
 const Home: NextPage = () => {
   const [data, setData] = useState<null | string>(null);
   useEffect(() => {
-    // Make a request for a user with a given ID
+    // 初期表示時に実行したい処理を定義する
+    
     setTimeout(() => {
       axios
-        .get("http://localhost:9002/")
-        .then((response) => {
+        .get("http://localhost:9002/") // http://localhost:9002/ に get リクエストを実行
+        .then((response) => { 
+          // 成功した場合の処理を定義
           // handle success
           console.log(response);
-          setData(response.data);
+          setData(response.data); // data を更新する
         })
         .catch(function (error) {
+          // エラー時の処理を定義
           // handle error
           console.log(error);
         })
         .finally(function () {
+          // 成功時も失敗時も最後に実行したい処理があれば定義する
           // always executed
         });
-    }, 3000);
+    }, 3000); // 3000ミリ秒後(3秒後)に実行
   }, []);
 
   return (
@@ -36,6 +40,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+        {/* ↓data に入っている文字列を画面に描画する */}
         <div>{data}</div>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
