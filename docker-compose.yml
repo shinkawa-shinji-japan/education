@@ -1,0 +1,59 @@
+version: "3"
+services:
+  #######################################
+  # マケプレ （Next.js + TypeScript）
+  #######################################
+  front_end:
+    image: node:16-alpine
+    working_dir: /usr/src/app
+    volumes:
+      - ./front_end/:/usr/src/app
+    # command: "yarn dev"
+    tty: true
+    ports:
+      - "9001:3000"
+
+  #######################################
+  # API  （Node.js（Expreess） + TypeScript）
+  #######################################
+  api:
+    image: node:14
+    working_dir: /usr/src/app
+    volumes:
+      - ./api/:/usr/src/app
+    depends_on:
+      - db
+    tty: true
+    ports:
+      - "9002:8000"
+    command: "yarn dev"
+
+  #######################################
+  # Database (MySQL v8)
+  #######################################
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    ports:
+      - "3306:3306"
+
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   environment:
+  #     - PMA_ARBITRARY=1
+  #     # 検証用RDS
+  #     - PMA_HOST=awseb-e-ryi3wttqby-stack-awsebrdsdatabase-iew55gr8f7mp.cxzecnhwgh9f.ap-northeast-1.rds.amazonaws.com
+  #     - PMA_USER=sadmin
+  #     - PMA_PASSWORD=JHKGk%erftew&sdfdsf43343sdfdsHj
+  #     # dockerコンテナのDB（ローカル用）
+  #     # - PMA_HOST=db
+  #     # - PMA_USER=root
+  #     # - PMA_PASSWORD=example
+  #   links:
+  #     - db
+  #   ports:
+  #     - 8082:80
+  #   volumes:
+  #     - /sessions
