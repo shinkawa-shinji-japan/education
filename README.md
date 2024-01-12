@@ -6,7 +6,7 @@
 version: "3"
 services:
   #######################################
-  # マケプレ （Next.js + TypeScript）
+  # フロント （Next.js + TypeScript）
   #######################################
   front_end:
     image: node:16-alpine
